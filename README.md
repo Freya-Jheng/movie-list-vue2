@@ -1,4 +1,9 @@
 # movie-list-vue2
+Click [Movie List]('https://freya-jheng.github.io/movie-list-vue2/#/movies/all') to view the website.
+
+## Functions
+* Users can see all movies by pages.
+* Users can get more information by clicking "More" button.
 
 ## Project setup
 ```
