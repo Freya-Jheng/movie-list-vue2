@@ -148,7 +148,7 @@ export default {
   width: 100%;
   margin-top: 50px;
   img {
-    object-fit: cover;
+    object-fit: contain;
   }
   &__wrapper {
     width: 80%;

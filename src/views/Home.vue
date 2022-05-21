@@ -1,6 +1,10 @@
 <template>
   <div class="home">
     <Navbar />
+    <SearchBar 
+    :all-movies="allMovies"
+    @after-filter-movies="afterFilterMovies"
+    />
     <div class="home__movies">
       <router-view :all-movies="allMovies"/>
     </div>
@@ -11,6 +15,7 @@
 <script>
 import Navbar from '@/components/Navbar.vue'
 import Pagination from '@/components/Pagination.vue'
+import SearchBar from '@/components/SearchBar.vue'
 import axios from 'axios'
 
 export default ({
@@ -23,10 +28,14 @@ export default ({
   components: {
     Navbar,
     Pagination,
+    SearchBar,
   },
   created () {
     this.fetchMovies()
   },
+  // updated() {
+  //   this.fetchMovies()
+  // },
   methods: {
     fetchMovies(){
       axios.get('https://movie-list.alphacamp.io/api/v1/movies')
@@ -38,6 +47,10 @@ export default ({
         console.log(error)
       })
     },
+    afterFilterMovies(newMovies) {
+      this.allMovies = newMovies
+      console.log('all',this.allMovies)
+    }
   }
 })
 </script>
