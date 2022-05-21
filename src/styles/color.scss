@@ -1,0 +1,16 @@
+$red-235: #eb1010;
+$orange-241: #f1a310;
+$orange-243: #f37c0d;
+$grey-117: #757474;
+$white: #ffffff;
+$black: #000000;
+
+:root {
+  --warning-font-red: #{$red-235};
+  --warning-font-orange: #{$orange-241};
+  --focus-color: #{$orange-243};
+  --border-color: #{$grey-117};
+  --button-hover-color: #{$orange-243};
+  --main-font-color: #{$black};
+  --sub-font-color: #{$white};
+}
