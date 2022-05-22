@@ -10,7 +10,11 @@
     <div class="home__movies">
       <router-view :all-movies="allMovies"/>
     </div>
-    <Pagination />
+    <Pagination
+    :total-movies="pages"
+    :origin-movies="originMovies"
+    @afetr-render-by-page="afetrRenderByPage"
+     />
   </div>
 </template>
 
@@ -25,7 +29,9 @@ export default ({
   data(){
     return {
       allMovies: [],
-      originMovies: []
+      originMovies: [],
+      pages: 0,
+      moviePerPage: 12,
     }
   },
   components: {
@@ -40,8 +46,9 @@ export default ({
     fetchMovies(){
       axios.get('https://movie-list.alphacamp.io/api/v1/movies')
       .then((response) => {
-        this.allMovies = response.data.results
+        this.allMovies = response.data.results.slice(1, 13)
         this.originMovies = response.data.results
+        this.pages = Math.ceil(this.originMovies.length/this.moviePerPage)
       })
       .catch((error) => {
         alert('Cannot get movies from api !')
@@ -51,6 +58,9 @@ export default ({
     afterFilterMovies(payload) {
       const {newMovies} = payload
       this.allMovies = newMovies
+    },
+    afetrRenderByPage(payload) {
+      this.allMovies = payload
     }
   }
 })
