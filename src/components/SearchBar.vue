@@ -75,6 +75,7 @@ export default {
       border: 1px solid var(--border-color);
       border-radius: 4px;
       width: 15vw;
+      min-width: 150px;
       height: 30px;
       max-width: 350px;
       text-align: left;
