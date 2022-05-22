@@ -3,6 +3,8 @@
     <Navbar />
     <SearchBar 
     :all-movies="allMovies"
+    :origin-movies="originMovies"
+   
     @after-filter-movies="afterFilterMovies"
     />
     <div class="home__movies">
@@ -22,7 +24,8 @@ export default ({
   name: 'home',
   data(){
     return {
-      allMovies: []
+      allMovies: [],
+      originMovies: []
     }
   },
   components: {
@@ -33,23 +36,21 @@ export default ({
   created () {
     this.fetchMovies()
   },
-  // updated() {
-  //   this.fetchMovies()
-  // },
   methods: {
     fetchMovies(){
       axios.get('https://movie-list.alphacamp.io/api/v1/movies')
       .then((response) => {
         this.allMovies = response.data.results
+        this.originMovies = response.data.results
       })
       .catch((error) => {
         alert('Cannot get movies from api !')
         console.log(error)
       })
     },
-    afterFilterMovies(newMovies) {
+    afterFilterMovies(payload) {
+      const {newMovies} = payload
       this.allMovies = newMovies
-      console.log('all',this.allMovies)
     }
   }
 })

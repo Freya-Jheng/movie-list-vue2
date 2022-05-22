@@ -24,7 +24,11 @@ export default {
     allMovies: {
       type: Array,
       required: true
-    }
+    },
+    originMovies: {
+      type: Array,
+      required: true
+    },
   },
   data() {
     return {
@@ -35,22 +39,24 @@ export default {
   methods: {
     fetchKeyword () {
       const searchKeyWord = this.keyword.trim().toLowerCase()
-      if(!searchKeyWord.length) {
-         return alert('Please type valid keyword.')
-      }
 
-      for(const movie of this.allMovies) {
+      for(const movie of this.originMovies) {
         if(movie.title.toLowerCase().includes(searchKeyWord)) {
           this.filterMovies.push(movie)
         }
       }
 
-      if (this.filterMovies.length === 0) {
-        return alert(`Cannot find ${searchKeyWord}, please try other one.`)
+      if (this.filterMovies.length === 0 ) {
+        this.filterMovies = this.originMovies
+        alert(`Cannot find ${searchKeyWord}, please try other one.`)
+      } else if (!searchKeyWord.length) {
+        this.filterMovies = this.originMovies
+        alert('Please type a valid keyword! ')
       }
 
-      this.$emit('after-filter-movies', this.filterMovies)
-      console.log('filter', this.filterMovies)
+      this.$emit('after-filter-movies', {newMovies: this.filterMovies})
+
+      this.filterMovies = []
     },
   },
 };
